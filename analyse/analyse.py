@@ -57,14 +57,3 @@ class Log(object):
             return result
         
                 
-        
-#if __name__ == '__main__':
-#    file = sys.argv[1]
-    #a = Log(file)
-    #a.analys()
-#    print 'rt\'s result is: '+str(a.get_result('rt'))
-#a = Log('/root/log/fe1_openapi.tgz')
-a = Log(['/root/log/fe1_openapi.tgz'])
-a.analys_group()
-#print a.get_result('code')
-print a.get_result('rt')

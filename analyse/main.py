@@ -7,15 +7,15 @@ from build_html import *
 import smtplib, sys
 from email.mime.text import MIMEText
 
-a = Log('/home/y/var/log/fe3/201502/yongche-app-api_access_log-20150219.gz')
-a.analys()
+a = Log(['/root/log/fe1_openapi.tgz', '/root/log/fe2_openapi.tgz', '/root/log/fe3_openapi.tgz'])
+a.analys_group()
 
-rt_table = Table('openapi accesslog analyse RTime on fe3(Date:20150219)',['RT','times','percent'])
+rt_table = Table('openapi accesslog analyse RTime on ALL_fe(Date:20150328)',['RT','times','percent'])
 for i in a.get_result('rt'):
     rt_table.add_row(i)
 
 
-code_table = Table('openapi accesslog analyse Code on fe3(Date:20150219)',['Code','times','percent'])
+code_table = Table('openapi accesslog analyse Code on ALL_fe3(Date:20150328)',['Code','times','percent'])
 for j in a.get_result('code'):
     code_table.add_row(j)
 
@@ -23,7 +23,7 @@ page = Page()
 page.add_table(rt_table)
 page.add_table(code_table)
 
-page.print_page('/home/liulei/log/analyse/page.html')
+page.print_page('/root/log_analyse/analyse/page.html')
 
 
 mailto_list = ['liulei@yongche.com']
@@ -51,11 +51,11 @@ def send_mail(to_list, sub, content):
 
 
 mail_text = ('')
-with open('/home/liulei/log/analyse/page.html','r') as text:
+with open('/root/log_analyse/analyse/page.html','r') as text:
     for line in text:
         mail_text += line
 
-if send_mail(mailto_list, "test_0328", mail_text):
+if send_mail(mailto_list, "Test_0329", mail_text):
     print "发送成功"
 else:
     print "发送失败"
