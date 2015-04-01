@@ -3,23 +3,23 @@
 import os
 import gzip
 import re
-import sys
+
 from collections import defaultdict
 
 
 class Log(object):
-    def __init__(self,path_list=['/root/log/fe1_openapi.tgz','/root/log/fe2_openapi.tgz','/root/log/fe3_openapi.tgz','/root/log/fe4_openapi.tgz','/root/log/fe5_openapi.tgz']):
-        self.path_list=path_list
-        self.a="0~50ms   ";
-        self.b="50~150ms ";
-        self.c="150~300ms";
-        self.d=">300ms   ";
-        self.count_code = defaultdict(int) #dict value的默认类型为int
+    def __init__(self, path_list=[]):
+        self.path_list = path_list
+        self.a = "0~50ms   "
+        self.b = "50~150ms "
+        self.c = "150~300ms"
+        self.d = ">300ms   "
+        self.count_code = defaultdict(int)  # dict value的默认类型为int
         self.count_rt = defaultdict(int)
         self.count_line = 0
 
     def analys_group(self):
-        for log in self.path_list :
+        for log in self.path_list:
             if os.path.exists(log): 
                 with gzip.open(log, 'rb') as pf:
                     for line in pf:
@@ -41,7 +41,7 @@ class Log(object):
                         else:
                             self.count_rt[self.d] += 1 if self.d in self.count_rt else 1
             else:
-                print('the log [{}] is not exist!'.format(path))
+                print('the log [{}] is not exist!'.format(log))
 
     def get_result(self, col):
         result = []
@@ -55,5 +55,3 @@ class Log(object):
                 percent = "%.4f" % (float(self.count_rt[key])*100/self.count_line)
                 result = result + [[key, str(self.count_rt[key]), str(percent)+'%']]
             return result
-        
-                

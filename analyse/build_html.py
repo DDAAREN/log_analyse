@@ -16,20 +16,25 @@ class Html(object):
 '''
 
 class Table(Html):
-    def __init__(self, table_name, head=['']):
+    def __init__(self, table_name):
         self.table_name = table_name
-        self.text = [head]
+        self.text = []
+        #self.text = head1
 
     def add_row(self, data=['']):
-        self.text.append(data)
+        self.text.append(data[:])
 
     def print_table(self):
         print '<h4>'+self.table_name+'</h4>'
         print '<table border="1">'
         for contact in self.text:
-            print '    <tr>'
+            if contact[1] == 'TIMES':
+                print '    <tr bgcolor=#6A5ACD>'
+            else:
+                print '    <tr>'
+        # print '    <tr bgcolor=#6A5ACD>'
             for column in contact:
-                print "        <td>"+str(column)+"</td>"
+                print "        <td width=\"100\">"+str(column)+"</td>"
             print '    </tr>'
         print '''</table>'''
 
@@ -39,10 +44,10 @@ class Page(Html):
         self.table_list = []
 
     def add_table(self, table):
-        #self.table_list += table
+        # self.table_list += table
         self.table_list.append(table)
 
-    def print_page(self, path='/home/liulei/log/analyse/page.html'):
+    def print_page(self, path='/tmp/.page.html'):
         __stdout = sys.stdout
         sys.stdout = open(path,'w+')
         self.print_head()
