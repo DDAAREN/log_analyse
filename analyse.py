@@ -8,7 +8,10 @@ from collections import defaultdict
 
 
 class Log(object):
-    def __init__(self, path_list=[]):
+    #def __init__(self, path_list=[]):
+    def __init__(self, path_list=None):
+        if path_list is None:
+            path_list = []
         self.path_list = path_list
         self.a = "0~50ms   "
         self.b = "50~150ms "
